@@ -1,9 +1,12 @@
 package br.com.vollmed.dto;
 
-public record EnderecoDTO(String cep,
-                          String logradouro,
-                          String bairro,
-                          String localidade,
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+
+public record EnderecoDTO(@NotBlank @Pattern(regexp = "\\d{8}") String cep,
+                          @NotBlank String logradouro,
+                          @NotBlank String bairro,
+                          @NotBlank String localidade,
                           String uf,
                           String complemento) {
 }

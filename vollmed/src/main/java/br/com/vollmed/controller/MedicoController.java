@@ -1,8 +1,8 @@
 package br.com.vollmed.controller;
 
 import br.com.vollmed.dto.MedicoDTO;
-import br.com.vollmed.repository.MedicoRepository;
 import br.com.vollmed.service.MedicoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,7 +17,7 @@ public class MedicoController {
     private MedicoService service;
 
     @PostMapping
-    public void cadastrarMedico(@RequestBody MedicoDTO dados) {
+    public void cadastrarMedico(@RequestBody @Valid MedicoDTO dados) {
         service.cadastrarMedico(dados);
     }
 }
