@@ -1,6 +1,6 @@
 package br.com.vollmed.model;
 
-import br.com.vollmed.dto.MedicoDTO;
+import br.com.vollmed.dto.CadastroMedicoDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,7 +25,7 @@ public class Medico {
     @Embedded
     private Endereco endereco;
 
-    public Medico(MedicoDTO dados) {
+    public Medico(CadastroMedicoDTO dados) {
         this.nome = dados.nome();
         this.email = dados.email();
         this.telefone = dados.telefone();
