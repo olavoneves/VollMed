@@ -5,8 +5,9 @@ import br.com.vollmed.dto.ListagemMedicoDTO;
 import br.com.vollmed.model.Medico;
 import br.com.vollmed.repository.MedicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import java.util.List;
 
 @Service
 public class MedicoService {
@@ -18,9 +19,8 @@ public class MedicoService {
         repository.save(new Medico(dados));
     }
 
-    public List<ListagemMedicoDTO> listarMedico() {
-        return repository.findAll().stream()
-                .map(ListagemMedicoDTO::new)
-                .toList();
+    public Page<ListagemMedicoDTO> listarMedico(Pageable pagination) {
+        return repository.findAll(pagination)
+                .map(ListagemMedicoDTO::new);
     }
 }

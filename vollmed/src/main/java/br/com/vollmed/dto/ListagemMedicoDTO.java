@@ -8,6 +8,6 @@ public record ListagemMedicoDTO(String nome,
                                 String crm,
                                 Especialidade especialidade) {
     public ListagemMedicoDTO(Medico medico) {
-        this();
+        this(medico.getNome(), medico.getEmail(), medico.getCrm(), medico.getEspecialidade());
     }
 }
