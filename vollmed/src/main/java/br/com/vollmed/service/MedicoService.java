@@ -1,5 +1,6 @@
 package br.com.vollmed.service;
 
+import br.com.vollmed.dto.AtualizaMedicoDTO;
 import br.com.vollmed.dto.CadastroMedicoDTO;
 import br.com.vollmed.dto.ListagemMedicoDTO;
 import br.com.vollmed.model.Medico;
@@ -22,5 +23,10 @@ public class MedicoService {
     public Page<ListagemMedicoDTO> listarMedico(Pageable pagination) {
         return repository.findAll(pagination)
                 .map(ListagemMedicoDTO::new);
+    }
+
+    public void atualizarDadosMedico(AtualizaMedicoDTO dados) {
+        var medico = repository.getReferenceById(dados.id());
+        medico.atualizarDados(dados);
     }
 }

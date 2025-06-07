@@ -1,5 +1,6 @@
 package br.com.vollmed.controller;
 
+import br.com.vollmed.dto.AtualizaPacienteDTO;
 import br.com.vollmed.dto.CadastroPacienteDTO;
 import br.com.vollmed.dto.ListagemPacienteDTO;
 import br.com.vollmed.service.PacienteService;
@@ -27,5 +28,11 @@ public class PacienteController {
     @GetMapping
     public Page<ListagemPacienteDTO> listarPaciente(@PageableDefault(size = 10, page = 0, sort = {"nome"}) Pageable pagination) {
         return service.listarPaciente(pagination);
+    }
+
+    @PutMapping
+    @Transactional
+    public void atualizarDadosPaciente(@RequestBody @Valid AtualizaPacienteDTO dados) {
+        service.atualizarDadosPaciente(dados);
     }
 }

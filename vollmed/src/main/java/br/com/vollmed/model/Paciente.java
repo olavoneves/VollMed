@@ -1,5 +1,6 @@
 package br.com.vollmed.model;
 
+import br.com.vollmed.dto.AtualizaPacienteDTO;
 import br.com.vollmed.dto.CadastroPacienteDTO;
 import jakarta.persistence.*;
 import lombok.*;
@@ -28,5 +29,15 @@ public class Paciente {
         this.telefone = dados.telefone();
         this.cpf = dados.cpf();
         this.endereco = new Endereco(dados.endereco());
+    }
+
+    public void atualizarDados(AtualizaPacienteDTO dados) {
+        if (!dados.nome().isEmpty()) {
+            this.nome = dados.nome();
+        }
+
+        if (dados.endereco() != null) {
+            this.endereco.atualizarEndereco(dados.endereco());
+        }
     }
 }

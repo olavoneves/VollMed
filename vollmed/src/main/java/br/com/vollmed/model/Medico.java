@@ -1,5 +1,6 @@
 package br.com.vollmed.model;
 
+import br.com.vollmed.dto.AtualizaMedicoDTO;
 import br.com.vollmed.dto.CadastroMedicoDTO;
 import jakarta.persistence.*;
 import lombok.*;
@@ -32,5 +33,19 @@ public class Medico {
         this.crm = dados.crm();
         this.especialidade = dados.especialidade();
         this.endereco = new Endereco(dados.endereco());
+    }
+
+    public void atualizarDados(AtualizaMedicoDTO dados) {
+        if (!dados.nome().isEmpty()) {
+            this.nome = dados.nome();
+        }
+
+        if (!dados.telefone().isEmpty()) {
+            this.telefone = dados.telefone();
+        }
+
+        if (dados.endereco() != null) {
+            this.endereco.atualizarEndereco(dados.endereco());
+        }
     }
 }

@@ -2,12 +2,13 @@ package br.com.vollmed.dto;
 
 import br.com.vollmed.model.Paciente;
 
-public record ListagemPacienteDTO(String nome,
+public record ListagemPacienteDTO(Long id,
+                                  String nome,
                                   String email,
                                   String telefone) {
 
     public ListagemPacienteDTO(Paciente paciente) {
-        this(paciente.getNome(), paciente.getEmail(), paciente.getTelefone());
+        this(paciente.getId(), paciente.getNome(), paciente.getEmail(), paciente.getTelefone());
     }
 
 }

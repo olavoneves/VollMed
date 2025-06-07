@@ -1,7 +1,9 @@
 package br.com.vollmed.controller;
 
+import br.com.vollmed.dto.AtualizaMedicoDTO;
 import br.com.vollmed.dto.CadastroMedicoDTO;
 import br.com.vollmed.dto.ListagemMedicoDTO;
+import br.com.vollmed.dto.ListagemPacienteDTO;
 import br.com.vollmed.service.MedicoService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -27,5 +29,11 @@ public class MedicoController {
     @GetMapping
     public Page<ListagemMedicoDTO> listarMedico(@PageableDefault(size = 10, page = 0, sort = {"nome"}) Pageable pagination) {
         return service.listarMedico(pagination);
+    }
+
+    @PutMapping
+    @Transactional
+    public void atualizarDadosMedico(@RequestBody @Valid AtualizaMedicoDTO dados) {
+        service.atualizarDadosMedico(dados);
     }
 }
