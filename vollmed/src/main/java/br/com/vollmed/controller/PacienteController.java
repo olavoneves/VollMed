@@ -35,4 +35,10 @@ public class PacienteController {
     public void atualizarDadosPaciente(@RequestBody @Valid AtualizaPacienteDTO dados) {
         service.atualizarDadosPaciente(dados);
     }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public void excluirPaciente(@PathVariable Long id) {
+        service.excluirPaciente(id);
+    }
 }

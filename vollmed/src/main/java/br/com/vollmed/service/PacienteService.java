@@ -29,4 +29,9 @@ public class PacienteService {
         var paciente = repository.getReferenceById(dados.id());
         paciente.atualizarDados(dados);
     }
+
+    public void excluirPaciente(Long id) {
+        var paciente = repository.getReferenceById(id);
+        paciente.excluirPaciente();
+    }
 }

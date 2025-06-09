@@ -21,12 +21,17 @@ public class MedicoService {
     }
 
     public Page<ListagemMedicoDTO> listarMedico(Pageable pagination) {
-        return repository.findAll(pagination)
+        return repository.findAllByAtivoTrue(pagination)
                 .map(ListagemMedicoDTO::new);
     }
 
     public void atualizarDadosMedico(AtualizaMedicoDTO dados) {
         var medico = repository.getReferenceById(dados.id());
         medico.atualizarDados(dados);
+    }
+
+    public void excluirMedico(Long id) {
+        var medico = repository.getReferenceById(id);
+        medico.excluirMedico();
     }
 }

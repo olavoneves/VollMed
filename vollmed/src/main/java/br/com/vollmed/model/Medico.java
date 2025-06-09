@@ -25,6 +25,7 @@ public class Medico {
     private Especialidade especialidade;
     @Embedded
     private Endereco endereco;
+    private boolean ativo;
 
     public Medico(CadastroMedicoDTO dados) {
         this.nome = dados.nome();
@@ -33,6 +34,7 @@ public class Medico {
         this.crm = dados.crm();
         this.especialidade = dados.especialidade();
         this.endereco = new Endereco(dados.endereco());
+        this.ativo = true;
     }
 
     public void atualizarDados(AtualizaMedicoDTO dados) {
@@ -47,5 +49,9 @@ public class Medico {
         if (dados.endereco() != null) {
             this.endereco.atualizarEndereco(dados.endereco());
         }
+    }
+
+    public void excluirMedico() {
+        this.ativo = false;
     }
 }
