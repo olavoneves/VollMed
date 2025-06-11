@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/api/pacientes")
@@ -21,24 +23,24 @@ public class PacienteController {
 
     @PostMapping
     @Transactional
-    public void cadastrarPaciente(@RequestBody @Valid CadastroPacienteDTO dados) {
-        service.cadastrarPaciente(dados);
+    public ResponseEntity cadastrarPaciente(@RequestBody @Valid CadastroPacienteDTO dados, UriComponentsBuilder uriComponentsBuilder) {
+        return service.cadastrarPaciente(dados, uriComponentsBuilder);
     }
 
     @GetMapping
-    public Page<ListagemPacienteDTO> listarPaciente(@PageableDefault(size = 10, page = 0, sort = {"nome"}) Pageable pagination) {
+    public ResponseEntity<Page<ListagemPacienteDTO>> listarPaciente(@PageableDefault(size = 10, page = 0, sort = {"nome"}) Pageable pagination) {
         return service.listarPaciente(pagination);
     }
 
     @PutMapping
     @Transactional
-    public void atualizarDadosPaciente(@RequestBody @Valid AtualizaPacienteDTO dados) {
-        service.atualizarDadosPaciente(dados);
+    public ResponseEntity atualizarDadosPaciente(@RequestBody @Valid AtualizaPacienteDTO dados) {
+        return service.atualizarDadosPaciente(dados);
     }
 
     @DeleteMapping("/{id}")
     @Transactional
-    public void excluirPaciente(@PathVariable Long id) {
-        service.excluirPaciente(id);
+    public ResponseEntity excluirPaciente(@PathVariable Long id) {
+        return service.excluirPaciente(id);
     }
 }

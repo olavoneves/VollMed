@@ -3,7 +3,6 @@ package br.com.vollmed.controller;
 import br.com.vollmed.dto.AtualizaMedicoDTO;
 import br.com.vollmed.dto.CadastroMedicoDTO;
 import br.com.vollmed.dto.ListagemMedicoDTO;
-import br.com.vollmed.dto.ListagemPacienteDTO;
 import br.com.vollmed.service.MedicoService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -11,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/api/medicos")
@@ -22,24 +23,24 @@ public class MedicoController {
 
     @PostMapping
     @Transactional
-    public void cadastrarMedico(@RequestBody @Valid CadastroMedicoDTO dados) {
-        service.cadastrarMedico(dados);
+    public ResponseEntity cadastrarMedico(@RequestBody @Valid CadastroMedicoDTO dados, UriComponentsBuilder uriComponentsBuilder) {
+        return service.cadastrarMedico(dados, uriComponentsBuilder);
     }
 
     @GetMapping
-    public Page<ListagemMedicoDTO> listarMedico(@PageableDefault(size = 10, page = 0, sort = {"nome"}) Pageable pagination) {
+    public ResponseEntity<Page<ListagemMedicoDTO>> listarMedico(@PageableDefault(size = 10, page = 0, sort = {"nome"}) Pageable pagination) {
         return service.listarMedico(pagination);
     }
 
     @PutMapping
     @Transactional
-    public void atualizarDadosMedico(@RequestBody @Valid AtualizaMedicoDTO dados) {
-        service.atualizarDadosMedico(dados);
+    public ResponseEntity atualizarDadosMedico(@RequestBody @Valid AtualizaMedicoDTO dados) {
+        return service.atualizarDadosMedico(dados);
     }
 
     @DeleteMapping("/{id}")
     @Transactional
-    public void excluirMedico(@PathVariable Long id) {
-        service.excluirMedico(id);
+    public ResponseEntity excluirMedico(@PathVariable Long id) {
+        return service.excluirMedico(id);
     }
 }
