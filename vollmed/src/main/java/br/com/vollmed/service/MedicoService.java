@@ -1,9 +1,6 @@
 package br.com.vollmed.service;
 
-import br.com.vollmed.dto.AtualizaMedicoDTO;
-import br.com.vollmed.dto.CadastroMedicoDTO;
-import br.com.vollmed.dto.DetalhesMedicoDTO;
-import br.com.vollmed.dto.ListagemMedicoDTO;
+import br.com.vollmed.dto.*;
 import br.com.vollmed.model.Medico;
 import br.com.vollmed.repository.MedicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,5 +39,10 @@ public class MedicoService {
         var medico = repository.getReferenceById(id);
         medico.excluirMedico();
         return ResponseEntity.noContent().build();
+    }
+
+    public ResponseEntity detalharMedico(Long id) {
+        var medico = repository.getReferenceById(id);
+        return ResponseEntity.ok(new DetalhesMedicoDTO(medico));
     }
 }
