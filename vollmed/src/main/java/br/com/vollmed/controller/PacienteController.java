@@ -43,4 +43,9 @@ public class PacienteController {
     public ResponseEntity excluirPaciente(@PathVariable Long id) {
         return service.excluirPaciente(id);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity detalharPaciente(@PathVariable Long id) {
+        return service.detalharPaciente(id);
+    }
 }

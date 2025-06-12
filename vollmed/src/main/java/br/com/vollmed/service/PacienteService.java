@@ -43,4 +43,9 @@ public class PacienteService {
         paciente.excluirPaciente();
         return ResponseEntity.noContent().build();
     }
+
+    public ResponseEntity detalharPaciente(Long id) {
+        var paciente = repository.getReferenceById(id);
+        return ResponseEntity.ok(new DetalhesPacienteDTO(paciente));
+    }
 }
