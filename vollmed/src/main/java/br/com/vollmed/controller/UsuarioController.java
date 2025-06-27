@@ -1,6 +1,9 @@
 package br.com.vollmed.controller;
 
+import br.com.vollmed.dto.TokenDTO;
 import br.com.vollmed.dto.UsuarioDTO;
+import br.com.vollmed.infra.security.TokenService;
+import br.com.vollmed.model.Usuario;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,10 +21,14 @@ public class UsuarioController {
     @Autowired
     private AuthenticationManager manager;
 
+    @Autowired
+    private TokenService service;
+
     @PostMapping
     public ResponseEntity efetuarLogin(@RequestBody @Valid UsuarioDTO dados) {
-        var token = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha());
-        var authentication = manager.authenticate(token);
-        return ResponseEntity.ok().build();
+        var authenticationToken = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha());
+        var authentication = manager.authenticate(authenticationToken);
+        var tokenJWT = service.gerarToken((Usuario) authentication.getPrincipal());
+        return ResponseEntity.ok(new TokenDTO(tokenJWT));
     }
 }
