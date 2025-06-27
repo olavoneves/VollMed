@@ -1,7 +1,6 @@
 package br.com.vollmed.controller;
 
 import br.com.vollmed.dto.UsuarioDTO;
-import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
