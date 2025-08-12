@@ -2,7 +2,12 @@ package br.com.vollmed.service;
 
 import br.com.vollmed.dto.DetalhesAgendamentoConsultaDTO;
 import br.com.vollmed.dto.DetalhesConsultaDTO;
+import br.com.vollmed.infra.exception.ValidacaoException;
+import br.com.vollmed.model.Consulta;
+import br.com.vollmed.model.Medico;
 import br.com.vollmed.repository.ConsultaRepository;
+import br.com.vollmed.repository.MedicoRepository;
+import br.com.vollmed.repository.PacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -14,8 +19,37 @@ public class ConsultaService {
     @Autowired
     private ConsultaRepository consultaRepository;
 
+    @Autowired
+    private PacienteRepository pacienteRepository;
+
+    @Autowired
+    private MedicoRepository medicoRepository;
+
     public ResponseEntity agendarConsulta(@RequestBody DetalhesAgendamentoConsultaDTO dados) {
-        System.out.println(dados);
+        if (!pacienteRepository.existsById(dados.idPaciente())) {
+            throw new ValidacaoException("Id do paciente informado não existe.");
+        }
+        var paciente = pacienteRepository.getReferenceById(dados.idPaciente());
+
+        if (dados.idMedico() != null && !medicoRepository.existsById(dados.idMedico())) {
+            throw new ValidacaoException("Id do medico informado não existe.");
+        }
+        var medico = escolherMedico(dados);
+
+        var consulta = new Consulta(null, paciente, medico, dados.data(), dados.hora());
+        consultaRepository.save(consulta);
         return ResponseEntity.ok(new DetalhesConsultaDTO(null, null, null, null, null));
+    }
+
+    public Medico escolherMedico(DetalhesAgendamentoConsultaDTO dados) {
+        if (dados.idMedico() != null) {
+            return medicoRepository.getReferenceById(dados.idMedico());
+        }
+
+        if (dados.especialidade() == null) {
+            throw new ValidacaoException("Especialidade é o requisito mínimo obrigatório caso o médico não seja definido.");
+        }
+
+        return medicoRepository.escolherMedicoAleatorioLivre(dados.especialidade(), dados.data(), dados.hora());
     }
 }
