@@ -1,6 +1,7 @@
 package br.com.vollmed.service;
 
 import br.com.vollmed.dto.DetalhesAgendamentoConsultaDTO;
+import br.com.vollmed.dto.DetalhesCancelamentoConsultaDTO;
 import br.com.vollmed.dto.DetalhesConsultaDTO;
 import br.com.vollmed.infra.exception.ValidacaoException;
 import br.com.vollmed.model.Consulta;
@@ -51,5 +52,17 @@ public class ConsultaService {
         }
 
         return medicoRepository.escolherMedicoAleatorioLivre(dados.especialidade(), dados.data(), dados.hora());
+    }
+
+    public void cancelarConsulta(@RequestBody DetalhesCancelamentoConsultaDTO dados) {
+        if (!consultaRepository.existsById(dados.consulta().getId())) {
+            throw new ValidacaoException("Consulta é um requisito essencial para realização desse método.");
+        }
+
+        if (dados.motivoCancelamento().isEmpty()) {
+            throw new ValidacaoException("Motivo do Cancelamento é um requisito obrigatório.");
+        }
+
+        consultaRepository.deleteById(dados.consulta().getId());
     }
 }
