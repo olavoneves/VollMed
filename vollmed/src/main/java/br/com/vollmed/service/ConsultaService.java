@@ -30,13 +30,13 @@ public class ConsultaService {
         if (!pacienteRepository.existsById(dados.idPaciente())) {
             throw new ValidacaoException("Id do paciente informado não existe.");
         }
-        var paciente = pacienteRepository.getReferenceById(dados.idPaciente());
 
         if (dados.idMedico() != null && !medicoRepository.existsById(dados.idMedico())) {
             throw new ValidacaoException("Id do medico informado não existe.");
         }
-        var medico = escolherMedico(dados);
 
+        var paciente = pacienteRepository.getReferenceById(dados.idPaciente());
+        var medico = escolherMedico(dados);
         var consulta = new Consulta(null, paciente, medico, dados.data(), dados.hora());
         consultaRepository.save(consulta);
         return ResponseEntity.ok(new DetalhesConsultaDTO(null, null, null, null, null));

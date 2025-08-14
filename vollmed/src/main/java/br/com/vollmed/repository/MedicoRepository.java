@@ -1,6 +1,5 @@
 package br.com.vollmed.repository;
 
-import aj.org.objectweb.asm.commons.Remapper;
 import br.com.vollmed.model.Especialidade;
 import br.com.vollmed.model.Medico;
 import jakarta.validation.constraints.NotNull;
@@ -36,4 +35,12 @@ public interface MedicoRepository extends JpaRepository<Medico, Long> {
             LIMIT 1
             """)
     Medico escolherMedicoAleatorioLivre(Especialidade especialidade, @NotNull LocalDate data, @NotNull LocalTime hora);
+
+    @Query("""
+            SELECT medico.ativo
+            FROM Medico medico
+            WHERE
+            medico.id = :id
+            """)
+    Boolean findAtivoById(Long idMedico);
 }
