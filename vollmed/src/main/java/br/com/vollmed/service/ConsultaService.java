@@ -9,10 +9,13 @@ import br.com.vollmed.model.Medico;
 import br.com.vollmed.repository.ConsultaRepository;
 import br.com.vollmed.repository.MedicoRepository;
 import br.com.vollmed.repository.PacienteRepository;
+import br.com.vollmed.validation.IValidador;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.List;
 
 @Service
 public class ConsultaService {
@@ -26,6 +29,9 @@ public class ConsultaService {
     @Autowired
     private MedicoRepository medicoRepository;
 
+    @Autowired
+    private List<IValidador> validadores;
+
     public ResponseEntity agendarConsulta(@RequestBody DetalhesAgendamentoConsultaDTO dados) {
         if (!pacienteRepository.existsById(dados.idPaciente())) {
             throw new ValidacaoException("Id do paciente informado não existe.");
@@ -34,6 +40,8 @@ public class ConsultaService {
         if (dados.idMedico() != null && !medicoRepository.existsById(dados.idMedico())) {
             throw new ValidacaoException("Id do medico informado não existe.");
         }
+
+        validadores.forEach(validador -> validador.validar(dados));
 
         var paciente = pacienteRepository.getReferenceById(dados.idPaciente());
         var medico = escolherMedico(dados);

@@ -2,11 +2,13 @@ package br.com.vollmed.validation;
 
 import br.com.vollmed.dto.DetalhesAgendamentoConsultaDTO;
 import br.com.vollmed.infra.exception.ValidacaoException;
+import org.springframework.stereotype.Component;
 
 import java.time.Duration;
 import java.time.LocalTime;
 
-public class ValidadorHorarioAntecedenciaClinica {
+@Component
+public class ValidadorHorarioAntecedenciaClinica implements IValidador{
 
     public void validar(DetalhesAgendamentoConsultaDTO dados) {
         var horaConsulta = dados.hora();

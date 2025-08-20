@@ -2,10 +2,12 @@ package br.com.vollmed.validation;
 
 import br.com.vollmed.dto.DetalhesAgendamentoConsultaDTO;
 import br.com.vollmed.infra.exception.ValidacaoException;
+import org.springframework.stereotype.Component;
 
 import java.time.DayOfWeek;
 
-public class ValidadorHorarioFuncionamentoClinica {
+@Component
+public class ValidadorHorarioFuncionamentoClinica implements IValidador{
 
     public void validar(DetalhesAgendamentoConsultaDTO dados) {
         var dataConsulta = dados.data();
