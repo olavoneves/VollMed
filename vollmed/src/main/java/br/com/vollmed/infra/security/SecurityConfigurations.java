@@ -27,7 +27,11 @@ public class SecurityConfigurations {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
+                        // Libero minhas rotas, nesse caso de Login
                         .requestMatchers(HttpMethod.POST, "/api/login").permitAll()
+                        // Libero o Swagger
+                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**").permitAll()
+                        // Necessário autenticação em todos outros casos
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
