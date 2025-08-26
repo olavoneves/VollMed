@@ -23,8 +23,8 @@ public class ConsultaController {
         return ResponseEntity.ok(dto);
     }
 
-    @GetMapping
-    public void cancelarConsulta(@RequestBody @Valid DetalhesCancelamentoConsultaDTO dados) {
-        consultaService.cancelarConsulta(dados);
+    @DeleteMapping
+    public ResponseEntity cancelarConsulta(@RequestBody @Valid DetalhesCancelamentoConsultaDTO dados) {
+        return consultaService.cancelarConsulta(dados);
     }
 }

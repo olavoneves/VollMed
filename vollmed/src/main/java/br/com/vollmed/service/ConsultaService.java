@@ -45,6 +45,9 @@ public class ConsultaService {
 
         var paciente = pacienteRepository.getReferenceById(dados.idPaciente());
         var medico = escolherMedico(dados);
+        if (medico == null) {
+            throw new ValidacaoException("Não existe médico disponível nessa data!");
+        }
         var consulta = new Consulta(null, paciente, medico, dados.data(), dados.hora());
         consultaRepository.save(consulta);
         return new DetalhesConsultaDTO(consulta);
@@ -62,7 +65,7 @@ public class ConsultaService {
         return medicoRepository.escolherMedicoAleatorioLivre(dados.especialidade(), dados.data(), dados.hora());
     }
 
-    public void cancelarConsulta(@RequestBody DetalhesCancelamentoConsultaDTO dados) {
+    public ResponseEntity cancelarConsulta(@RequestBody DetalhesCancelamentoConsultaDTO dados) {
         if (!consultaRepository.existsById(dados.consulta().getId())) {
             throw new ValidacaoException("Consulta é um requisito essencial para realização desse método.");
         }
@@ -72,5 +75,6 @@ public class ConsultaService {
         }
 
         consultaRepository.deleteById(dados.consulta().getId());
+        return ResponseEntity.ok().body("Consulta excluida com sucesso!");
     }
 }
