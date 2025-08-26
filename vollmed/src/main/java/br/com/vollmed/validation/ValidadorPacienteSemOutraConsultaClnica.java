@@ -15,7 +15,7 @@ public class ValidadorPacienteSemOutraConsultaClnica implements IValidador{
     public void validar(DetalhesAgendamentoConsultaDTO dados) {
         var firstHour = dados.hora().withHour(7);
         var lastHour = dados.hora().withHour(18);
-        var pacientePossuiOutraConsultaNoDia = consultaRepository.existsByPacienteIdAndDataAndHoraBetween(dados.idPaciente(), firstHour, lastHour);
+        var pacientePossuiOutraConsultaNoDia = consultaRepository.existsByPacienteIdAndDataAndHoraBetween(dados.idPaciente(), dados.data(), firstHour, lastHour);
         if (pacientePossuiOutraConsultaNoDia) {
             throw new ValidacaoException("Paciente já possui outra consulta no dia");
         }
