@@ -32,7 +32,7 @@ public class ConsultaService {
     @Autowired
     private List<IValidador> validadores;
 
-    public ResponseEntity agendarConsulta(@RequestBody DetalhesAgendamentoConsultaDTO dados) {
+    public DetalhesConsultaDTO agendarConsulta(@RequestBody DetalhesAgendamentoConsultaDTO dados) {
         if (!pacienteRepository.existsById(dados.idPaciente())) {
             throw new ValidacaoException("Id do paciente informado não existe.");
         }
@@ -47,7 +47,7 @@ public class ConsultaService {
         var medico = escolherMedico(dados);
         var consulta = new Consulta(null, paciente, medico, dados.data(), dados.hora());
         consultaRepository.save(consulta);
-        return ResponseEntity.ok(new DetalhesConsultaDTO(null, null, null, null, null));
+        return new DetalhesConsultaDTO(consulta);
     }
 
     public Medico escolherMedico(DetalhesAgendamentoConsultaDTO dados) {

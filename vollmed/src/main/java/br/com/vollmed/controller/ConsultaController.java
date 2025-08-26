@@ -2,7 +2,6 @@ package br.com.vollmed.controller;
 
 import br.com.vollmed.dto.DetalhesAgendamentoConsultaDTO;
 import br.com.vollmed.dto.DetalhesCancelamentoConsultaDTO;
-import br.com.vollmed.dto.DetalhesConsultaDTO;
 import br.com.vollmed.service.ConsultaService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -20,7 +19,8 @@ public class ConsultaController {
     @PostMapping
     @Transactional
     public ResponseEntity agendarConsulta(@RequestBody @Valid DetalhesAgendamentoConsultaDTO dados) {
-        return consultaService.agendarConsulta(dados);
+        var dto = consultaService.agendarConsulta(dados);
+        return ResponseEntity.ok(dto);
     }
 
     @GetMapping

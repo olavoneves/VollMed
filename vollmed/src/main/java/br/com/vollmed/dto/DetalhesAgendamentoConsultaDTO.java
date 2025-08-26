@@ -1,5 +1,6 @@
 package br.com.vollmed.dto;
 
+import br.com.vollmed.model.Consulta;
 import br.com.vollmed.model.Especialidade;
 import jakarta.validation.constraints.NotNull;
 
@@ -11,5 +12,4 @@ public record DetalhesAgendamentoConsultaDTO(Long idPaciente,
                                              @NotNull LocalDate data,
                                              @NotNull LocalTime hora,
                                             Especialidade especialidade) {
-
 }
