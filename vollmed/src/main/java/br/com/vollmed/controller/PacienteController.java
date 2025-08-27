@@ -4,6 +4,7 @@ import br.com.vollmed.dto.AtualizaPacienteDTO;
 import br.com.vollmed.dto.CadastroPacienteDTO;
 import br.com.vollmed.dto.ListagemPacienteDTO;
 import br.com.vollmed.service.PacienteService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/api/pacientes")
+@SecurityRequirement(name = "bearer-key")
 public class PacienteController {
 
     @Autowired
