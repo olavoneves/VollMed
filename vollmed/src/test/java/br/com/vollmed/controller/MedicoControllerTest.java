@@ -64,13 +64,13 @@ class MedicoControllerTest {
         var enderecoDTO = new EnderecoDTO("08212340", "rua", "zl", "tatuape", "sp", "ap2");
 
         var dadosCadastro = new CadastroMedicoDTO(
-                "Marcos", "marcos@gmail.com", "11953215425", "23452", especialidade, enderecoDTO
+                "Luiz", "luiz@gmail.com", "11953215425", "23452", especialidade, enderecoDTO
         );
 
         var dadosDetalhamento = new DetalhesMedicoDTO(
-                1L,
-                "Marcos",
-                "marcos@gmail.com",
+                2L,
+                "Luiz",
+                "luiz@gmail.com",
                 "23452",
                 especialidade,
                 new Endereco()
