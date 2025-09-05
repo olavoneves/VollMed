@@ -55,7 +55,7 @@ O sistema possibilita o cadastro de médicos e pacientes, autenticação de usu�
   http://localhost:8080/swagger-ui.html
 
 📦 Arquivo .jar
-➡️  [Baixar .jar](https://github.com/SEU-USUARIO/NOME-DO-REPO/releases/download/v1.0.0/vollmed-0.0.1-SNAPSHOT.jar)
+➡️  [Baixar .jar](https://github.com/olavoneves/VollMed/releases/download/v1.0.0/vollmed-0.0.1-SNAPSHOT.jar)
 
 src/main/java/br/com/vollmed  <br>
  ├── controller     # Controllers da aplicação <br>
